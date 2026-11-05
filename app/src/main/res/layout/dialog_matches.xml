@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="4dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMatches"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingBottom="8dp"
+        tools:listitem="@layout/item_match" />
+
+    <TextView
+        android:id="@+id/tvMatchesEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:paddingHorizontal="24dp"
+        android:text="No possible matches yet. We will suggest opposite-type reports as they arrive."
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</LinearLayout>
