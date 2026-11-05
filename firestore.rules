@@ -1,0 +1,220 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    function itemExists(itemId) {
+      return exists(/databases/$(database)/documents/items/$(itemId));
+    }
+
+    function itemOwnerId(itemId) {
+      return get(/databases/$(database)/documents/items/$(itemId)).data.userId;
+    }
+
+    function itemOwner(itemId) {
+      return itemOwnerId(itemId);
+    }
+
+    // A cross-user notification is only accepted when the referenced claim
+    // actually links the sender and recipient (owner <-> claimant). This stops
+    // members from writing arbitrary messages into someone else's inbox.
+    function claimNotificationAllowed(itemId, recipientId, actorId) {
+      let recipientClaimId = itemId + '_' + recipientId;
+      let actorClaimId = itemId + '_' + actorId;
+      return (
+        exists(/databases/$(database)/documents/claims/$(recipientClaimId))
+          && get(/databases/$(database)/documents/claims/$(recipientClaimId)).data.ownerId == actorId
+      ) || (
+        exists(/databases/$(database)/documents/claims/$(actorClaimId))
+          && get(/databases/$(database)/documents/claims/$(actorClaimId)).data.ownerId == recipientId
+      );
+    }
+
+    // ---------------------------------------------------------------------
+    // Users: private profiles. Only the signed-in user can read their own
+    // document (which contains the phone number used for contact sharing).
+    // Reports keep a denormalized user name/photo so feeds never need this.
+    // ---------------------------------------------------------------------
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId)
+        && request.resource.data.uid == userId
+        && (!('isVerified' in request.resource.data) || request.resource.data.isVerified == request.auth.token.email_verified);
+      allow update: if isOwner(userId)
+        && request.resource.data.uid == userId
+        && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['isVerified'])
+            || request.resource.data.isVerified == request.auth.token.email_verified);
+      allow delete: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // Items: readable by signed-in members. Only the owner may change or
+    // delete a report. Claimants never write to items; they create a claim.
+    // ---------------------------------------------------------------------
+    match /items/{itemId} {
+      allow read: if isAuthenticated();
+
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.clientRequestId == itemId
+        && !('userPhone' in request.resource.data)
+        && request.resource.data.title is string
+        && request.resource.data.title.size() <= 120
+        && request.resource.data.type in ['lost', 'found']
+        && (!('userVerified' in request.resource.data) || request.resource.data.userVerified == request.auth.token.email_verified);
+
+      allow update: if isAuthenticated()
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.userId == resource.data.userId
+        // Legacy documents may predate clientRequestId; allow the owner to
+        // fill it in once, but never to change an existing value.
+        && (!('clientRequestId' in resource.data)
+            || request.resource.data.clientRequestId == resource.data.clientRequestId)
+        && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['userVerified'])
+            || request.resource.data.userVerified == request.auth.token.email_verified);
+
+      allow delete: if isAuthenticated()
+        && resource.data.userId == request.auth.uid;
+    }
+
+    // ---------------------------------------------------------------------
+    // Claims (contact requests). A claim id is itemId_claimantId, so it is
+    // deterministic and a claimant can only ever create one request per item.
+    // Contact details are only visible to the claimant and the item owner.
+    // ---------------------------------------------------------------------
+    match /claims/{claimId} {
+      allow read: if isAuthenticated()
+        && (resource.data.claimantId == request.auth.uid
+            || resource.data.ownerId == request.auth.uid);
+
+      allow create: if isAuthenticated()
+        && request.resource.data.claimantId == request.auth.uid
+        && request.resource.data.ownerId != request.auth.uid
+        && claimId == request.resource.data.itemId + '_' + request.auth.uid
+        && itemExists(request.resource.data.itemId)
+        && request.resource.data.ownerId == itemOwnerId(request.resource.data.itemId)
+        && request.resource.data.status == 'pending'
+        && request.resource.data.ownerContact == '';
+
+      allow update: if isAuthenticated() && (
+        // Owner approves or declines a request.
+        (resource.data.ownerId == request.auth.uid
+          && request.resource.data.ownerId == resource.data.ownerId
+          && request.resource.data.claimantId == resource.data.claimantId
+          && request.resource.data.status in ['approved', 'rejected']
+          && request.resource.data.ownerContact is string)
+        ||
+        // Claimant may resend a declined request with updated details.
+        (resource.data.claimantId == request.auth.uid
+          && resource.data.status == 'rejected'
+          && request.resource.data.claimantId == resource.data.claimantId
+          && request.resource.data.ownerId == resource.data.ownerId
+          && request.resource.data.itemId == resource.data.itemId
+          && request.resource.data.status == 'pending'
+          && request.resource.data.ownerContact == '')
+      );
+
+      allow delete: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // Notifications: a user can send one on behalf of themselves (actorId
+    // must match the caller) and can only read/update their own inbox.
+    // ---------------------------------------------------------------------
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated()
+        && resource.data.userId == request.auth.uid;
+
+      allow create: if isAuthenticated()
+        && request.resource.data.actorId == request.auth.uid
+        && request.resource.data.userId is string
+        && request.resource.data.itemId is string
+        && request.resource.data.title is string
+        && request.resource.data.title.size() <= 120
+        && request.resource.data.message is string
+        && request.resource.data.message.size() <= 500
+        && (
+          // Notifications to yourself (e.g. your own match suggestion).
+          request.resource.data.userId == request.auth.uid
+          // Match alerts: valid if the referenced item exists, and it is owned
+          // either by the recipient or by the caller (the matching opposite reporter).
+          || (request.resource.data.type == 'match'
+              && itemExists(request.resource.data.itemId)
+              && (itemOwnerId(request.resource.data.itemId) == request.resource.data.userId
+                  || itemOwnerId(request.resource.data.itemId) == request.auth.uid))
+          // Claim alerts must be backed by a real owner <-> claimant pair.
+          || claimNotificationAllowed(
+              request.resource.data.itemId,
+              request.resource.data.userId,
+              request.auth.uid)
+        );
+
+      allow update: if isAuthenticated()
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read'])
+        && request.resource.data.read == true;
+
+      allow delete: if isAuthenticated()
+        && resource.data.userId == request.auth.uid;
+    }
+
+    // ---------------------------------------------------------------------
+    // Activity timeline: private to the user who generated it.
+    // ---------------------------------------------------------------------
+    match /activities/{activityId} {
+      allow read: if isAuthenticated()
+        && resource.data.userId == request.auth.uid;
+
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.actorId == request.auth.uid;
+
+      allow update: if false;
+
+      allow delete: if isAuthenticated()
+        && resource.data.userId == request.auth.uid;
+    }
+
+    // ---------------------------------------------------------------------
+    // Match suggestions: written by either matching party for their report
+    // and read/dismissed by the respective owner.
+    // ---------------------------------------------------------------------
+    match /matches/{matchId} {
+      allow read: if isAuthenticated()
+        && resource.data.ownerId == request.auth.uid;
+
+      allow create: if isAuthenticated()
+        && (request.resource.data.ownerId == request.auth.uid
+            || request.resource.data.matchedOwnerId == request.auth.uid)
+        && request.resource.data.status == 'suggested'
+        && matchId == request.resource.data.itemId + '_'
+            + request.resource.data.matchedItemId;
+
+      allow update: if isAuthenticated()
+        && resource.data.ownerId == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && request.resource.data.status == 'dismissed';
+
+      allow delete: if false;
+    }
+
+    // ---------------------------------------------------------------------
+    // Moderation reports: submitted by users to flag spam or inappropriate posts.
+    // ---------------------------------------------------------------------
+    match /reports/{reportId} {
+      allow read: if false;
+      allow create: if isAuthenticated()
+        && request.resource.data.reporterId == request.auth.uid
+        && request.resource.data.targetId is string
+        && request.resource.data.reason is string;
+      allow update, delete: if false;
+    }
+  }
+}
