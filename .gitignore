@@ -1,0 +1,28 @@
+*.iml
+.gradle
+/local.properties
+/.idea/
+.DS_Store
+/build
+*/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Local secrets / tooling
+.env
+.env.*
+!.env.example
+supabase/.env
+supabase/.temp/
+*.serviceAccount.json
+serviceAccountKey.json
+
+# Keystores and signed artifacts
+*.keystore
+*.jks
+*.apk
+*.aab
+local.properties
+
+
