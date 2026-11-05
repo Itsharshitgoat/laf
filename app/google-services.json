@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "12585325443",
+    "project_id": "laf-00",
+    "storage_bucket": "laf-00.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12585325443:android:73d5c348474a1643941cb6",
+        "android_client_info": {
+          "package_name": "com.laf.lostandfound"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQvZpaocm0f73tNRoStM6znSVhi-8xpU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
