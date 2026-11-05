@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand Colors -->
+    <color name="primary">#40916C</color>
+    <color name="primary_dark">#2D6A4F</color>
+    <color name="primary_light">#74C69D</color>
+    <color name="secondary">#D4A373</color>
+    <color name="accent">#D4A373</color>
+
+    <!-- Background & Surface -->
+    <color name="background">#101613</color>
+    <color name="surface">#1A201C</color>
+    <color name="card_background">#1A201C</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#F1F5F2</color>
+    <color name="text_secondary">#B3C0B8</color>
+    <color name="text_hint">#8A9990</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_secondary">#1B1B1B</color>
+
+    <!-- Badge Colors -->
+    <color name="badge_found">#52B788</color>
+    <color name="badge_lost">#E5696B</color>
+    <color name="badge_match">#52B788</color>
+    <color name="found_green">#52B788</color>
+    <color name="lost_red">#E5696B</color>
+
+    <!-- Chip Colors -->
+    <color name="chip_selected_bg">#40916C</color>
+    <color name="chip_unselected_bg">#26302A</color>
+    <color name="chip_selected_text">#FFFFFF</color>
+    <color name="chip_unselected_text">#F1F5F2</color>
+
+    <!-- Divider & Border -->
+    <color name="divider">#2C3630</color>
+    <color name="border_light">#2C3630</color>
+    <color name="input_border">#3A463F</color>
+
+    <!-- Status Bar -->
+    <color name="status_bar">#101613</color>
+
+    <!-- WhatsApp -->
+    <color name="whatsapp_green">#25D366</color>
+    <color name="whatsapp_green_dark">#1DA851</color>
+
+    <!-- Section Backgrounds -->
+    <color name="section_background">#161C18</color>
+    <color name="search_bar_bg">#26302A</color>
+
+    <!-- Grey Variants mirrored for dark surfaces so text stays readable -->
+    <color name="grey_50">#1A201C</color>
+    <color name="grey_100">#202822</color>
+    <color name="grey_200">#26302A</color>
+    <color name="grey_300">#2C3630</color>
+    <color name="grey_400">#3A463F</color>
+    <color name="grey_500">#8A9990</color>
+    <color name="grey_600">#B3C0B8</color>
+    <color name="grey_700">#CBD4CE</color>
+    <color name="grey_800">#DDE4DF</color>
+    <color name="grey_900">#F1F5F2</color>
+
+    <!-- Pressed / Ripple States -->
+    <color name="primary_pressed">#2D6A4F</color>
+    <color name="ripple_primary">#332D6A4F</color>
+    <color name="ripple_grey">#33FFFFFF</color>
+
+    <!-- Error / Warning -->
+    <color name="error">#FF8A8C</color>
+    <color name="warning">#F4A261</color>
+    <color name="success">#52B788</color>
+
+    <!-- Bottom Nav -->
+    <color name="bottom_nav_active">#7FBFA4</color>
+    <color name="bottom_nav_inactive">#8A9990</color>
+    <color name="bottom_nav_bg">#1A201C</color>
+
+    <!-- Themed component backgrounds -->
+    <color name="wizard_track">#3A463F</color>
+    <color name="wizard_card_bg">#1A201C</color>
+    <color name="secondary_button_bg">#26302A</color>
+    <color name="detail_section_bg">#202822</color>
+    <color name="feature_tag_bg">#26302A</color>
+    <color name="timeline_circle_bg">#1F2A24</color>
+    <color name="holocard_pill_bg">#1F2A24</color>
+    <color name="chip_unselected_stroke">#3A463F</color>
+    <color name="success_banner_bg">#17321F</color>
+    <color name="success_banner_stroke">#2D6A4F</color>
+    <color name="warning_banner_bg">#3A2A14</color>
+    <color name="warning_banner_stroke">#F4A261</color>
+    <color name="warning_text">#F2C078</color>
+    <color name="danger_button_bg">#4A1F1F</color>
+    <color name="icon_accent">#7FBFA4</color>
+    <color name="accent_strong">#E0A96D</color>
+</resources>
