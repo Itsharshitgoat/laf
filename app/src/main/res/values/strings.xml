@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lost &amp; Found</string>
+    <string name="app_name_display">Lost &amp; Found</string>
+    <string name="splash_subtitle">Find what was yours</string>
+    <string name="hint_email">Email address</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Full Name</string>
+    <string name="hint_phone">Phone Number</string>
+
+    <!-- Splash & Auth -->
+    <string name="tagline">Find what was yours</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="dont_have_account">Don\'t have an account? Sign Up</string>
+    <string name="already_have_account">Already have an account? Sign In</string>
+    <string name="email_hint">Email address</string>
+    <string name="password_hint">Password</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="name_hint">Full Name</string>
+    <string name="phone_hint">Phone Number</string>
+    <string name="forgot_password">Forgot Password?</string>
+
+    <!-- Home Screen -->
+    <string name="greeting_format">Good afternoon, %s</string>
+    <string name="home_headline">Let\'s find what\nwas yours...?</string>
+    <string name="search_hint">Search lost items...</string>
+    <string name="recently_reported">Recently reported</string>
+    <string name="badge_found">FOUND</string>
+    <string name="badge_lost">LOST</string>
+
+    <!-- Scan Screen -->
+    <string name="scan_title">Scan an item</string>
+    <string name="analyzing_item">Analyzing item</string>
+    <string name="analysis_complete">Analysis Complete</string>
+    <string name="item_type">Item Type</string>
+    <string name="primary_color">Primary Color</string>
+    <string name="detected_features">Detected Features</string>
+    <string name="review_and_post">Review &amp; Post →</string>
+
+    <!-- Post Item -->
+    <string name="report_item">Report Item</string>
+    <string name="post_item">Post Item</string>
+    <string name="title_hint">Item Title (e.g. Blue Card Holder)</string>
+    <string name="category_hint">Category</string>
+    <string name="description_hint">Description</string>
+    <string name="location_hint">Location (e.g. Central Library)</string>
+    <string name="color_hint">Color (e.g. Blue, Black)</string>
+    <string name="tap_to_add_photo">Tap to add photo</string>
+
+    <!-- Detail Screen -->
+    <string name="description_header">DESCRIPTION</string>
+    <string name="location_header">LOCATION</string>
+    <string name="get_directions">Get Directions</string>
+    <string name="verified_finder">Verified finder</string>
+    <string name="contact_on_whatsapp">Contact on WhatsApp</string>
+    <string name="this_is_my_item">This is my item</string>
+
+    <!-- Search Results -->
+    <string name="found_header">Found</string>
+    <string name="gallery_button">Gallery</string>
+    <string name="no_results">No matching items found</string>
+
+    <!-- Profile Screen -->
+    <string name="my_posts">My Posts</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="privacy">Privacy</string>
+    <string name="sign_out">Sign Out</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_report">Report</string>
+    <string name="nav_notifications">Alerts</string>
+    <string name="nav_scan">Scan</string>
+    <string name="nav_profile">Profile</string>
+</resources>
