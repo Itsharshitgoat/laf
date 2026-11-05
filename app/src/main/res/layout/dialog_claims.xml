@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="4dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvClaims"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingBottom="8dp"
+        tools:listitem="@layout/item_claim" />
+
+    <TextView
+        android:id="@+id/tvClaimsEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:fontFamily="sans-serif"
+        android:paddingHorizontal="24dp"
+        android:text="No contact requests yet. People who think the item is theirs will appear here."
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</LinearLayout>
