@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- External files directory for camera captured images -->
+    <external-files-path
+        name="captured_images"
+        path="Pictures" />
+
+    <!-- Cache directory for temporary images -->
+    <cache-path
+        name="cache_images"
+        path="images" />
+
+    <!-- External cache directory -->
+    <external-cache-path
+        name="external_cache_images"
+        path="images" />
+</paths>
