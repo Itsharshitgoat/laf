@@ -1,0 +1,5 @@
+# The mobile app calls the analyze-item function without a Supabase session.
+# Keep JWT verification disabled for this function only, and keep the Ollama
+# key in the function's environment variables.
+[functions.analyze-item]
+verify_jwt = false
