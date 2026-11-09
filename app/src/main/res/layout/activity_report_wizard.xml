@@ -108,7 +108,7 @@
                         android:textSize="14sp" />
 
                     <!-- Card: Lost Item -->
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardLost"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
@@ -172,10 +172,10 @@
 
                         </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                     <!-- Card: Found Item -->
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardFound"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
@@ -239,7 +239,7 @@
 
                         </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                 </LinearLayout>
 
@@ -268,7 +268,7 @@
                         android:textColor="@color/text_secondary"
                         android:textSize="14sp" />
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardPhotoPicker"
                         android:layout_width="match_parent"
                         android:layout_height="240dp"
@@ -324,7 +324,7 @@
 
                         </FrameLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -344,7 +344,7 @@
                             app:cornerRadius="14dp"
                             app:icon="@drawable/ic_camera"
                             app:iconTint="@color/text_primary"
-                            app:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnGalleryPick"
@@ -358,7 +358,7 @@
                             app:cornerRadius="14dp"
                             app:icon="@drawable/ic_gallery"
                             app:iconTint="@color/text_primary"
-                            app:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary" />
 
                     </LinearLayout>
 
@@ -658,7 +658,7 @@
                             app:cornerRadius="14dp"
                             app:icon="@drawable/ic_calendar"
                             app:iconTint="@color/text_primary"
-                            app:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnPickTime"
@@ -671,7 +671,7 @@
                             app:cornerRadius="14dp"
                             app:icon="@drawable/ic_clock"
                             app:iconTint="@color/text_primary"
-                            app:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary" />
 
                     </LinearLayout>
 
@@ -731,7 +731,7 @@
                     </LinearLayout>
 
                     <!-- Privacy Notice Card -->
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -762,7 +762,7 @@
 
                         </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                 </LinearLayout>
 
@@ -792,7 +792,7 @@
                         android:textSize="14sp" />
 
                     <!-- Summary Card -->
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -890,7 +890,7 @@
 
                         </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                 </LinearLayout>
 
